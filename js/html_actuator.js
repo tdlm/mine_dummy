@@ -1,15 +1,26 @@
 'use strict';
 
+/**
+ * HTML Actuator
+ *
+ * @param EventManager
+ * @param HtmlElementsObject
+ * @constructor
+ */
 function HtmlActuator(EventManager, HtmlElementsObject) {
+    // Constructor settings
     this.events = EventManager;
     this.table = document.getElementById(HtmlElementsObject.table_id);
     this.startButton = document.getElementById(HtmlElementsObject.start_button_id);
 
+    // Initial settings
     this.width = 0;
     this.height = 0;
 
+    // Listeners for HTML Events
     this.startButton.onclick = this.onClickStart.bind(this);
 
+    // Listeners for EventManager Events
     this.events.addListener('new_grid', this.onNewGrid.bind(this));
     this.events.addListener('clear_tile', this.onClearTile.bind(this));
     this.events.addListener('set_number_tile', this.onSetNumberTile.bind(this));
@@ -20,6 +31,10 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
     this.events.addListener('bad_flag', this.onBadFlag.bind(this));
 }
 
+/**
+ * Listener: New Grid
+ * @param grid
+ */
 HtmlActuator.prototype.onNewGrid = function(grid) {
     this.width = grid.width;
     this.height = grid.height;
@@ -42,6 +57,10 @@ HtmlActuator.prototype.onNewGrid = function(grid) {
     }
 };
 
+/**
+ * Listener: Clear Tile
+ * @param tile
+ */
 HtmlActuator.prototype.onClearTile = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.add('clear');
@@ -51,40 +70,71 @@ HtmlActuator.prototype.onClearTile = function(tile) {
     }
 };
 
+/**
+ * Listener: Set Number Tile
+ * @param tile
+ */
 HtmlActuator.prototype.onSetNumberTile = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.dataset.number = tile.tile.numberValue;
 };
 
+/**
+ * Listener: Flag Tile
+ * @param tile
+ */
 HtmlActuator.prototype.onFlagTile = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.add('flag');
 };
 
+/**
+ * Listener: Unflag Tile
+ * @param tile
+ */
 HtmlActuator.prototype.onUnflagTile = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.remove('flag');
 };
 
+/**
+ * Listener: Stepped on a Mine
+ * @param tile
+ */
 HtmlActuator.prototype.onStepOnMine = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.add('red');
 };
 
+/**
+ * Listener: Mine Exposed
+ * @param tile
+ */
 HtmlActuator.prototype.onExposeMine = function(tile) {
     var cell = this.table.rows[tile.mine.x].cells[tile.mine.y];
     cell.classList.add('mine');
 };
 
+/**
+ * Listener: Bad Flag Revealed
+ * @param tile
+ */
 HtmlActuator.prototype.onBadFlag = function(tile) {
     var cell = this.table.rows[tile.mine.x].cells[tile.mine.y];
     cell.classList.add('red');
 };
 
-HtmlActuator.prototype.onClickStart = function(event) {
+/**
+ * Listener: Start Button click
+ */
+HtmlActuator.prototype.onClickStart = function() {
     this.events.trigger('start');
 };
 
+/**
+ * Listener: Cell click
+ * @param event
+ */
 HtmlActuator.prototype.onCellClick = function(event) {
     var event_trigger;
 
