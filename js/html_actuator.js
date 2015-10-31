@@ -33,6 +33,7 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
 
 /**
  * Listener: New Grid
+ *
  * @param grid
  */
 HtmlActuator.prototype.onNewGrid = function(grid) {
@@ -59,6 +60,7 @@ HtmlActuator.prototype.onNewGrid = function(grid) {
 
 /**
  * Listener: Clear Tile
+ *
  * @param tile
  */
 HtmlActuator.prototype.onClearTile = function(tile) {
@@ -72,6 +74,7 @@ HtmlActuator.prototype.onClearTile = function(tile) {
 
 /**
  * Listener: Set Number Tile
+ *
  * @param tile
  */
 HtmlActuator.prototype.onSetNumberTile = function(tile) {
@@ -81,6 +84,7 @@ HtmlActuator.prototype.onSetNumberTile = function(tile) {
 
 /**
  * Listener: Flag Tile
+ *
  * @param tile
  */
 HtmlActuator.prototype.onFlagTile = function(tile) {
@@ -90,6 +94,7 @@ HtmlActuator.prototype.onFlagTile = function(tile) {
 
 /**
  * Listener: Unflag Tile
+ *
  * @param tile
  */
 HtmlActuator.prototype.onUnflagTile = function(tile) {
@@ -99,6 +104,7 @@ HtmlActuator.prototype.onUnflagTile = function(tile) {
 
 /**
  * Listener: Stepped on a Mine
+ *
  * @param tile
  */
 HtmlActuator.prototype.onStepOnMine = function(tile) {
@@ -108,6 +114,7 @@ HtmlActuator.prototype.onStepOnMine = function(tile) {
 
 /**
  * Listener: Mine Exposed
+ *
  * @param tile
  */
 HtmlActuator.prototype.onExposeMine = function(tile) {
@@ -117,6 +124,7 @@ HtmlActuator.prototype.onExposeMine = function(tile) {
 
 /**
  * Listener: Bad Flag Revealed
+ *
  * @param tile
  */
 HtmlActuator.prototype.onBadFlag = function(tile) {
@@ -133,6 +141,7 @@ HtmlActuator.prototype.onClickStart = function() {
 
 /**
  * Listener: Cell click
+ *
  * @param event
  */
 HtmlActuator.prototype.onCellClick = function(event) {

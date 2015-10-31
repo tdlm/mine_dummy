@@ -1,5 +1,12 @@
 'use strict';
 
+/**
+ * Grid
+ *
+ * @param width
+ * @param height
+ * @constructor
+ */
 function Grid(width, height) {
     this.width = width;
     this.height = height;
@@ -7,6 +14,11 @@ function Grid(width, height) {
     this.cells = this.empty();
 }
 
+/**
+ * Cell Iterator
+ *
+ * @param callback
+ */
 Grid.prototype.eachCell = function(callback) {
     for (var x = 0; x < this.width; x++) {
         for (var y = 0; y < this.height; y++) {
@@ -15,6 +27,11 @@ Grid.prototype.eachCell = function(callback) {
     }
 };
 
+/**
+ * Array of Available Cells
+ *
+ * @returns {Array}
+ */
 Grid.prototype.availableCells = function() {
     var cells = [];
 
@@ -27,10 +44,20 @@ Grid.prototype.availableCells = function() {
     return cells;
 };
 
+/**
+ * Are there cells available?
+ *
+ * @returns {boolean}
+ */
 Grid.prototype.cellsAvailable = function() {
     return !!this.availableCells().length;
 };
 
+/**
+ * Empty the Grid
+ *
+ * @returns {Array}
+ */
 Grid.prototype.empty = function() {
     var cells = [];
 
@@ -45,14 +72,33 @@ Grid.prototype.empty = function() {
     return cells;
 };
 
+/**
+ * Insert Tile
+ *
+ * @param tile
+ */
 Grid.prototype.insertTile = function(tile) {
     this.cells[tile.x][tile.y] = tile;
 };
 
+/**
+ * Get Tile at X, Y
+ *
+ * @param x
+ * @param y
+ * @returns {*}
+ */
 Grid.prototype.getTile = function(x, y) {
     return this.cells[x][y];
 };
 
+/**
+ * Get Cells Adjacent to X, Y
+ *
+ * @param x
+ * @param y
+ * @returns {Array}
+ */
 Grid.prototype.getCellsAdjacent = function(x, y) {
     var cells = [];
 
@@ -67,6 +113,13 @@ Grid.prototype.getCellsAdjacent = function(x, y) {
     return cells;
 };
 
+/**
+ * Get Adjacent Tiles without Nummbers
+ *
+ * @param x
+ * @param y
+ * @returns {Array}
+ */
 Grid.prototype.getTilesAdjacentWithoutNumbers = function(x, y) {
     var tiles = [];
 
@@ -86,6 +139,11 @@ Grid.prototype.getTilesAdjacentWithoutNumbers = function(x, y) {
     return tiles;
 };
 
+/**
+ * Get Tiles without Mines or Numbers
+ *
+ * @returns {Array}
+ */
 Grid.prototype.getTilesWithoutMinesOrNumbers = function() {
     var tiles = [];
     this.eachCell(function(x, y, tile) {
@@ -97,6 +155,11 @@ Grid.prototype.getTilesWithoutMinesOrNumbers = function() {
     return tiles;
 };
 
+/**
+ * Get Tiles with Mines
+ *
+ * @returns {Array}
+ */
 Grid.prototype.getTilesWithMines = function() {
     var tiles = [];
     this.eachCell(function(x, y, tile) {
@@ -108,6 +171,11 @@ Grid.prototype.getTilesWithMines = function() {
     return tiles;
 };
 
+/**
+ * Get Tiles with Flags, yet no Mines
+ *
+ * @returns {Array}
+ */
 Grid.prototype.getTilesWithFlagsAndNoMines = function() {
     var tiles = [];
     this.eachCell(function(x, y, tile) {
@@ -119,6 +187,13 @@ Grid.prototype.getTilesWithFlagsAndNoMines = function() {
     return tiles;
 };
 
+/**
+ * Get Tiles Adjacent to X, Y
+ *
+ * @param x
+ * @param y
+ * @returns {Array}
+ */
 Grid.prototype.getTilesAdjacent = function(x, y) {
     var cells = this.getCellsAdjacent(x, y);
     var tiles = [];
@@ -130,6 +205,13 @@ Grid.prototype.getTilesAdjacent = function(x, y) {
     return tiles;
 };
 
+/**
+ * Get Empty Tiles Adjacent to X, Y
+ *
+ * @param x
+ * @param y
+ * @returns {Array}
+ */
 Grid.prototype.getEmptyTilesAdjacent = function(x, y) {
     var cells = this.getTilesAdjacent(x, y);
     var tiles = [];
@@ -145,6 +227,9 @@ Grid.prototype.getEmptyTilesAdjacent = function(x, y) {
     return tiles;
 };
 
+/**
+ * Get Random Available Cell
+ */
 Grid.prototype.getRandomAvailableCell = function() {
     var cells = this.availableCells();
 
@@ -153,6 +238,13 @@ Grid.prototype.getRandomAvailableCell = function() {
     }
 };
 
+/**
+ * Are the coordinates within the bounds of the grid?
+ *
+ * @param x
+ * @param y
+ * @returns {boolean}
+ */
 Grid.prototype.withinBounds = function(x, y) {
     return x >= 0 && x < this.width &&
         y >= 0 && y < this.height;
