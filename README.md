@@ -9,6 +9,7 @@ Mine Dummy (Minesweeper clone in JS)
 - Change images for mines/flags to custom SVGs
 - Fancy up the buttons
 - Fancy up the squares?
+- Clean up usage disparity between X, Y coordinates and Tile objects
 
 Disclaimer: I have made this rudimentary version of Minesweeper in a coding style much borrowed from
 @gabrielecirulli's version of 2048 (https://github.com/gabrielecirulli/2048). The gaming logic was

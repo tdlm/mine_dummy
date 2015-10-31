@@ -1,5 +1,14 @@
 'use strict';
 
+/**
+ * Game Manager
+ *
+ * @param width
+ * @param height
+ * @param mines
+ * @param HtmlElementsObject
+ * @constructor
+ */
 function GameManager(width, height, mines, HtmlElementsObject) {
     this.width = width; // Grid width
     this.height = height; // Grid height
@@ -17,6 +26,9 @@ function GameManager(width, height, mines, HtmlElementsObject) {
     this.events.addListener('tile_flag', this.onTileFlag.bind(this));
 }
 
+/**
+ * Set Things Up
+ */
 GameManager.prototype.setup = function() {
     this.ended = false;
 
@@ -29,6 +41,12 @@ GameManager.prototype.setup = function() {
     this.setNumberTiles();
 };
 
+/**
+ * Step On a Mine
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.stepOnMine = function(x, y) {
     this.ended = true;
 
@@ -38,6 +56,9 @@ GameManager.prototype.stepOnMine = function(x, y) {
     this.exposeBadFlags();
 };
 
+/**
+ * Add Starting Tiles
+ */
 GameManager.prototype.addStartTiles = function() {
     for (var x = 0; x < this.width; x++) {
         for (var y = 0; y < this.height; y++) {
@@ -50,6 +71,9 @@ GameManager.prototype.addStartTiles = function() {
     }
 };
 
+/**
+ * Expose Mine Tiles
+ */
 GameManager.prototype.exposeMineTiles = function() {
     var mines = this.grid.getTilesWithMines();
     for (var i = 0; i < mines.length; i++) {
@@ -57,6 +81,9 @@ GameManager.prototype.exposeMineTiles = function() {
     }
 };
 
+/**
+ * Expose Bad Flags (ouch)
+ */
 GameManager.prototype.exposeBadFlags = function() {
     var mines = this.grid.getTilesWithFlagsAndNoMines();
     for (var i = 0; i < mines.length; i++) {
@@ -64,12 +91,18 @@ GameManager.prototype.exposeBadFlags = function() {
     }
 };
 
+/**
+ * Plant the Mines
+ */
 GameManager.prototype.plantTheMines = function() {
     for (var i = 0; i < this.mines; i++) {
         this.plantRandomMine();
     }
 };
 
+/**
+ * Set the Number Tiles
+*/
 GameManager.prototype.setNumberTiles = function() {
 
     var tilesWithoutMinesOrNumbers = this.grid.getTilesWithoutMinesOrNumbers();
@@ -95,6 +128,9 @@ GameManager.prototype.setNumberTiles = function() {
     }
 };
 
+/**
+ * Plant a Random Mine somewhere
+ */
 GameManager.prototype.plantRandomMine = function() {
     if (this.grid.cellsAvailable()) {
         var cell = this.grid.getRandomAvailableCell();
@@ -106,6 +142,12 @@ GameManager.prototype.plantRandomMine = function() {
     }
 };
 
+/**
+ * Clear Tile at X, Y
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.clearTile = function(x, y) {
     var tile = this.grid.getTile(x, y);
 
@@ -121,6 +163,12 @@ GameManager.prototype.clearTile = function(x, y) {
     }
 };
 
+/**
+ * Attempt to Clear Adjacent Tiles
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.clearAdjacentTiles = function(x, y) {
     var adjacentEmptyTiles = this.grid.getEmptyTilesAdjacent(x, y);
 
@@ -130,10 +178,20 @@ GameManager.prototype.clearAdjacentTiles = function(x, y) {
     }
 };
 
+/**
+ * Listener: On Tile Step
+ *
+ * @param tile
+ */
 GameManager.prototype.onTileStep = function(tile) {
     this.step(tile.x, tile.y);
 };
 
+/**
+ * Listener: On Tile Flag
+ *
+ * @param tileObj
+ */
 GameManager.prototype.onTileFlag = function(tileObj) {
 
     var tile = this.grid.getTile(tileObj.x, tileObj.y);
@@ -145,8 +203,13 @@ GameManager.prototype.onTileFlag = function(tileObj) {
     }
 };
 
+/**
+ * Step at X, Y
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.step = function(x, y) {
-
     if (this.ended) {
         // Do nothing
     } else if (!this.grid.withinBounds(x, y)) {
@@ -169,6 +232,12 @@ GameManager.prototype.step = function(x, y) {
     }
 };
 
+/**
+ * Flag Tile at X, Y
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.flag = function(x, y) {
     var tile = this.grid.getTile(x, y);
     tile.flagged = true;
@@ -176,6 +245,12 @@ GameManager.prototype.flag = function(x, y) {
     this.events.trigger('flag_tile', {x: x, y: y, tile: tile});
 };
 
+/**
+ * Unflag Tile at X, Y
+ *
+ * @param x
+ * @param y
+ */
 GameManager.prototype.unflag = function(x, y) {
     var tile = this.grid.getTile(x, y);
     tile.flagged = false;
