@@ -10,4 +10,7 @@ Mine Dummy (Minesweeper clone in JS)
 - Fancy up the squares?
 
 Disclaimer: I have made this rudimentary version of Minesweeper in a coding style much borrowed from
-@gabrielecirulli's version of 2048 (https://github.com/gabrielecirulli/2048).
+@gabrielecirulli's version of 2048 (https://github.com/gabrielecirulli/2048). The gaming logic was
+determined almost entirely by observing David Carr's version of the game
+(http://retrozephyr.com/games.php?id=Mine%20Find) and asking him tons of annoying, but hopefully fun,
+questions.
