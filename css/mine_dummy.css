@@ -1,0 +1,29 @@
+#game_grid .tile {
+    width: 20px;
+    height: 20px;
+    background: #ddd;
+}
+
+#game_grid .red {
+    background-color: #f00;
+}
+
+#game_grid .clear {
+    background: #eee;
+}
+
+#game_grid .mine {
+    background-image: url(../img/mine.svg);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position-x: 1px;
+    background-position-y: 1px;
+}
+
+#game_grid .flag {
+    background-image: url(../img/flag.svg);
+    background-size: 20px 20px;
+    background-repeat: no-repeat;
+    background-position-x: 1px;
+    background-position-y: 1px;
+}
