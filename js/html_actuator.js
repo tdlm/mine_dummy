@@ -86,7 +86,6 @@ HtmlActuator.prototype.onClickStart = function(event) {
 };
 
 HtmlActuator.prototype.onCellClick = function(event) {
-
     var event_trigger;
 
     if (event.shiftKey || event.ctrlKey) {
