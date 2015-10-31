@@ -6,6 +6,8 @@ Mine Dummy (Minesweeper clone in JS)
 - Add flag counter
 - Add difficulty setting like Dave's has
 - Add "win" and "lose" screens
+- Add "remaining flags" display
+- Add instructions for use
 - Change images for mines/flags to custom SVGs
 - Fancy up the buttons
 - Fancy up the squares?
