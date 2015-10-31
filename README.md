@@ -6,6 +6,7 @@ Mine Dummy (Minesweeper clone in JS)
 - Add flag counter
 - Add difficulty setting like Dave's has
 - Add "win" and "lose" screens
+- Change images for mines/flags to custom SVGs
 - Fancy up the buttons
 - Fancy up the squares?
 
@@ -14,3 +15,7 @@ Disclaimer: I have made this rudimentary version of Minesweeper in a coding styl
 determined almost entirely by observing David Carr's version of the game
 (http://retrozephyr.com/games.php?id=Mine%20Find) and asking him tons of annoying, but hopefully fun,
 questions.
+
+I fully admit to having Googled for the images I've used here. As I'm not making a profit on them in
+any capacity, I thought the fair thing to do would be full disclosure here. If anyone wishes me to
+remove these images, I will gladly do so.
