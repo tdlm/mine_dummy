@@ -147,7 +147,7 @@ HtmlActuator.prototype.onClickStart = function() {
 HtmlActuator.prototype.onCellClick = function(event) {
     var event_trigger;
 
-    if (event.shiftKey || event.ctrlKey) {
+    if (event.shiftKey || event.ctrlKey || event.altKey) {
         event_trigger = 'tile_flag';
     } else {
         event_trigger = 'tile_step';
