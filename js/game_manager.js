@@ -239,7 +239,18 @@ GameManager.prototype.step = function(x, y) {
  * @param y
  */
 GameManager.prototype.flag = function(x, y) {
+
+    if (this.ended) {
+        // Do nothing
+        return;
+    }
+
     var tile = this.grid.getTile(x, y);
+
+    if (tile.cleared) {
+        return;
+    }
+
     tile.flagged = true;
 
     this.events.trigger('flag_tile', {x: x, y: y, tile: tile});
@@ -252,6 +263,11 @@ GameManager.prototype.flag = function(x, y) {
  * @param y
  */
 GameManager.prototype.unflag = function(x, y) {
+    if (this.ended) {
+        // Do nothing
+        return;
+    }
+
     var tile = this.grid.getTile(x, y);
     tile.flagged = false;
 

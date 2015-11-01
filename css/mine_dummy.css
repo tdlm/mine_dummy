@@ -2,6 +2,7 @@
     width: 20px;
     height: 20px;
     background: #ddd;
+    text-align: center;
 }
 
 #game_grid .red {
