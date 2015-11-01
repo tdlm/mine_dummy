@@ -34,7 +34,7 @@ GameManager.prototype.setup = function() {
 
     this.grid = new Grid(this.width, this.height);
 
-    this.events.trigger('new_grid', {width: this.width, height: this.height});
+    this.events.trigger('new_grid', {width: this.width, height: this.height, mines: this.mines});
 
     this.addStartTiles();
     this.plantTheMines();

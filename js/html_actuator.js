@@ -12,10 +12,13 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
     this.events = EventManager;
     this.table = document.getElementById(HtmlElementsObject.table_id);
     this.startButton = document.getElementById(HtmlElementsObject.start_button_id);
+    this.mineCountSpan = document.getElementById(HtmlElementsObject.mine_count_id);
 
     // Initial settings
     this.width = 0;
     this.height = 0;
+    this.mineCount = 0;
+    this.flagCount = 0;
 
     // Listeners for HTML Events
     this.startButton.onclick = this.onClickStart.bind(this);
@@ -29,6 +32,7 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
     this.events.addListener('step_on_mine', this.onStepOnMine.bind(this));
     this.events.addListener('expose_mine', this.onExposeMine.bind(this));
     this.events.addListener('bad_flag', this.onBadFlag.bind(this));
+    this.events.addListener('update_mine_count', this.onUpdateMineCount.bind(this));
 }
 
 /**
@@ -39,6 +43,10 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
 HtmlActuator.prototype.onNewGrid = function(grid) {
     this.width = grid.width;
     this.height = grid.height;
+    this.mineCount = grid.mines;
+    this.flagCount = 0;
+
+    this.events.trigger('update_mine_count', {mines: this.mineCount, flags: this.flagCount});
 
     var length = this.table.rows.length;
 
@@ -88,6 +96,9 @@ HtmlActuator.prototype.onSetNumberTile = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onFlagTile = function(tile) {
+    this.flagCount++;
+    this.events.trigger('update_mine_count', {mines: this.mineCount, flags: this.flagCount});
+
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.add('flag');
 };
@@ -98,6 +109,9 @@ HtmlActuator.prototype.onFlagTile = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onUnflagTile = function(tile) {
+    this.flagCount--;
+    this.events.trigger('update_mine_count', {mines: this.mineCount, flags: this.flagCount});
+
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.classList.remove('flag');
 };
@@ -130,6 +144,10 @@ HtmlActuator.prototype.onExposeMine = function(tile) {
 HtmlActuator.prototype.onBadFlag = function(tile) {
     var cell = this.table.rows[tile.mine.x].cells[tile.mine.y];
     cell.classList.add('red');
+};
+
+HtmlActuator.prototype.onUpdateMineCount = function(count) {
+    this.mineCountSpan.innerHTML = count.mines - count.flags;
 };
 
 /**
