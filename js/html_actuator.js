@@ -146,6 +146,11 @@ HtmlActuator.prototype.onBadFlag = function(tile) {
     cell.classList.add('red');
 };
 
+/**
+ * Listener: Update Mine Count
+ *
+ * @param count
+ */
 HtmlActuator.prototype.onUpdateMineCount = function(count) {
     this.mineCountSpan.innerHTML = count.mines - count.flags;
 };
