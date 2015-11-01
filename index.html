@@ -6,9 +6,15 @@
 	<link rel="stylesheet" href="css/mine_dummy.css" />
 </head>
 <body>
-<button id="game_start">Start</button>
-<span id="game_mines"></span>
-<table id="game_grid"></table>
+
+<div id="container">
+	<button id="game_start">Start</button>
+	<span id="game_mines"></span>
+	<table id="game_grid"></table>
+
+	<span id="instructions">Click to clear tiles. To flag a mine tile, hold SHIFT or CTRL or OPTION while clicking. Hit
+		an unflagged mine tile and you lose. Flag all mine tiles to win!</span>
+</div>
 
 
 <script src="js/grid.js"></script>
