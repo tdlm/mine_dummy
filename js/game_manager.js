@@ -88,7 +88,7 @@ GameManager.prototype.moveFirstMine = function(x, y) {
         cell = this.grid.getRandomAvailableCell(),
         newTile = this.grid.getTile(cell.x, cell.y);
 
-    tile.unPlantMine();
+    tile.unplantMine();
     newTile.plantMine();
 
     return true;

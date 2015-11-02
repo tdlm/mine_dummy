@@ -26,7 +26,7 @@ Tile.prototype.plantMine = function() {
     this.mine = true;
 };
 
-Tile.prototype.unPlantMine = function() {
+Tile.prototype.unplantMine = function() {
     this.mine = false;
 };
 
