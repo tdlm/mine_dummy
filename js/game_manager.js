@@ -17,7 +17,7 @@ function GameManager(width, height, mines, HtmlElementsObject) {
     this.ended = false;
 
     this.events = new EventManager();
-    this.actuator = new HtmlActuator(this.events, HtmlElementsObject);
+    this.actuator = new HtmlCanvasActuator(this.events, HtmlElementsObject);
 
     this.setup();
 

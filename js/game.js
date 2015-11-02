@@ -1,7 +1,8 @@
 window.requestAnimationFrame(function() {
-    window.GM = new GameManager(30, 30, 50,
+    window.GM = new GameManager(9, 9, 10,
         {
             'table_id': 'game_grid',
+            'canvas_id': 'game_canvas',
             'start_button_id': 'game_start',
             'mine_count_id': 'game_mines'
         }
