@@ -15,6 +15,7 @@ function GameManager(width, height, mines, HtmlElementsObject) {
     this.mines = mines; // Number of mines
     this.grid = null;
     this.ended = false;
+    this.steps = 0;
 
     this.events = new EventManager();
     this.actuator = new HtmlActuator(this.events, HtmlElementsObject);
@@ -31,6 +32,7 @@ function GameManager(width, height, mines, HtmlElementsObject) {
  */
 GameManager.prototype.setup = function() {
     this.ended = false;
+    this.steps = 0;
 
     this.grid = new Grid(this.width, this.height);
 
@@ -48,6 +50,12 @@ GameManager.prototype.setup = function() {
  * @param y
  */
 GameManager.prototype.stepOnMine = function(x, y) {
+    if (this.steps <= 1 && this.moveFirstMine(x, y)) {
+        this.clearTile(x, y);
+        this.resetNumberTiles();
+        return;
+    }
+
     this.ended = true;
 
     this.events.trigger('step_on_mine', {x: x, y: y});
@@ -69,6 +77,21 @@ GameManager.prototype.addStartTiles = function() {
             this.events.trigger('insert_tile', {x: x, y: y});
         }
     }
+};
+
+GameManager.prototype.moveFirstMine = function(x, y) {
+    if (!this.grid.cellsAvailable()) {
+        return false;
+    }
+
+    var tile = this.grid.getTile(x, y),
+        cell = this.grid.getRandomAvailableCell(),
+        newTile = this.grid.getTile(cell.x, cell.y);
+
+    tile.unPlantMine();
+    newTile.plantMine();
+
+    return true;
 };
 
 /**
@@ -100,9 +123,23 @@ GameManager.prototype.plantTheMines = function() {
     }
 };
 
+GameManager.prototype.resetNumberTiles = function() {
+    var tilesWithNumbers = this.grid.getTilesWithNumbers();
+
+    for (var i = 0; i < tilesWithNumbers.length; i++) {
+
+        var tile = tilesWithNumbers[i];
+
+        tile.numbered = false;
+        tile.numberValue = 0;
+    }
+
+    this.setNumberTiles();
+};
+
 /**
  * Set the Number Tiles
-*/
+ */
 GameManager.prototype.setNumberTiles = function() {
 
     var tilesWithoutMinesOrNumbers = this.grid.getTilesWithoutMinesOrNumbers();
@@ -218,6 +255,8 @@ GameManager.prototype.step = function(x, y) {
         var tile = this.grid.getTile(x, y);
 
         if (!tile.flagged && tile.mine) {
+            this.steps++;
+
             this.stepOnMine(tile.x, tile.y);
         } else if (tile.flagged && tile.mine) {
             // Flagged mine; do nothing
@@ -226,6 +265,8 @@ GameManager.prototype.step = function(x, y) {
         } else if (!tile.covered) {
             // Do nothing
         } else {
+            this.steps++;
+
             // Clear this mine and attempt to clear any adjacent
             this.clearTile(x, y);
         }

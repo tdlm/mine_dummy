@@ -25,3 +25,8 @@ function Tile(x, y) {
 Tile.prototype.plantMine = function() {
     this.mine = true;
 };
+
+Tile.prototype.unPlantMine = function() {
+    this.mine = false;
+};
+
