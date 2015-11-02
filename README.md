@@ -3,15 +3,13 @@ Mine Dummy (Minesweeper clone in JS)
 
 ## Todos:
 
-- Add flag counter
+- Convert from HTML Table to Canvas
 - Add difficulty setting like Dave's has
 - Add "win" and "lose" screens
-- Add "remaining flags" display
-- Add instructions for use
 - Change images for mines/flags to custom SVGs
 - Fancy up the buttons
 - Fancy up the squares?
-- Clean up usage disparity between X, Y coordinates and Tile objects
+- Clean up usage disparity between X, Y coordinates and Tile objects in code
 
 Disclaimer: I have made this rudimentary version of Minesweeper in a coding style much borrowed from
 @gabrielecirulli's version of 2048 (https://github.com/gabrielecirulli/2048). The gaming logic was
