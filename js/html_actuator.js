@@ -27,6 +27,7 @@ function HtmlActuator(EventManager, HtmlElementsObject) {
     this.events.addListener('new_grid', this.onNewGrid.bind(this));
     this.events.addListener('clear_tile', this.onClearTile.bind(this));
     this.events.addListener('set_number_tile', this.onSetNumberTile.bind(this));
+    this.events.addListener('unset_number_tile', this.onUnsetNumberTile.bind(this));
     this.events.addListener('flag_tile', this.onFlagTile.bind(this));
     this.events.addListener('unflag_tile', this.onUnflagTile.bind(this));
     this.events.addListener('step_on_mine', this.onStepOnMine.bind(this));
@@ -88,6 +89,16 @@ HtmlActuator.prototype.onClearTile = function(tile) {
 HtmlActuator.prototype.onSetNumberTile = function(tile) {
     var cell = this.table.rows[tile.x].cells[tile.y];
     cell.dataset.number = tile.tile.numberValue;
+};
+
+/**
+ * Listener: Unset Number Tile
+ *
+ * @param tile
+ */
+HtmlActuator.prototype.onUnsetNumberTile = function(tile) {
+    var cell = this.table.rows[tile.x].cells[tile.y];
+    cell.dataset.number = null;
 };
 
 /**

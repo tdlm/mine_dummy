@@ -172,6 +172,20 @@ Grid.prototype.getTilesWithNumbers = function() {
 };
 
 /**
+ * Get Tiles without Mines or Numbers
+ *
+ * @returns {Array}
+ */
+Grid.prototype.getAllTiles = function() {
+    var tiles = [];
+    this.eachCell(function(x, y, tile) {
+        tiles.push(tile);
+    });
+
+    return tiles;
+};
+
+/**
  * Get Tiles with Mines
  *
  * @returns {Array}

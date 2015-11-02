@@ -51,8 +51,9 @@ GameManager.prototype.setup = function() {
  */
 GameManager.prototype.stepOnMine = function(x, y) {
     if (this.steps <= 1 && this.moveFirstMine(x, y)) {
-        this.clearTile(x, y);
+        this.resetTile(x, y);
         this.resetNumberTiles();
+        this.clearTile(x, y);
         return;
     }
 
@@ -123,15 +124,18 @@ GameManager.prototype.plantTheMines = function() {
     }
 };
 
+/**
+ * Reset Number Tiles
+ */
 GameManager.prototype.resetNumberTiles = function() {
-    var tilesWithNumbers = this.grid.getTilesWithNumbers();
+    var tiles = this.grid.getAllTiles();
 
-    for (var i = 0; i < tilesWithNumbers.length; i++) {
-
-        var tile = tilesWithNumbers[i];
-
+    for (var i = 0; i < tiles.length; i++) {
+        var tile = tiles[i];
         tile.numbered = false;
         tile.numberValue = 0;
+
+        this.events.trigger('unset_number_tile', {x: tile.x, y: tile.y, tile: tile});
     }
 
     this.setNumberTiles();
@@ -150,7 +154,6 @@ GameManager.prototype.setNumberTiles = function() {
             mines = 0;
 
         for (var e = 0; e < adjacentTilesWithoutNumbers.length; e++) {
-
             if (adjacentTilesWithoutNumbers[e].mine) {
                 mines++;
             }
@@ -177,6 +180,17 @@ GameManager.prototype.plantRandomMine = function() {
 
         this.events.trigger('plant_mine', {x: cell.x, y: cell.y, tile: tile});
     }
+};
+
+/**
+ * Reset Tile for X, Y
+ *
+ * @param x
+ * @param y
+ */
+GameManager.prototype.resetTile = function(x, y) {
+    var tile = this.grid.getTile(x, y);
+    tile.reset();
 };
 
 /**
