@@ -55,10 +55,11 @@ HtmlActuator.prototype.onNewGrid = function(grid) {
         this.table.deleteRow(0);
     }
 
-    for (var x = 0, y = 0, row = null, cell = null; x < grid.width; x++) {
-        row = this.table.insertRow(x);
-        for (y = 0; y < grid.height; y++) {
-            cell = row.insertCell(y);
+    for (var y = 0, row, cell; y < grid.height; y++) {
+        row = this.table.insertRow(y);
+
+        for (var x = 0; x < grid.width; x++) {
+            cell = row.insertCell(x);
             cell.classList.add('tile');
             cell.dataset.x = x;
             cell.dataset.y = y;
@@ -73,10 +74,10 @@ HtmlActuator.prototype.onNewGrid = function(grid) {
  * @param tile
  */
 HtmlActuator.prototype.onClearTile = function(tile) {
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.classList.add('clear');
 
-    if (cell.dataset.number) {
+    if (parseInt(cell.dataset.number)) {
         cell.innerHTML = cell.dataset.number;
     }
 };
@@ -87,7 +88,7 @@ HtmlActuator.prototype.onClearTile = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onSetNumberTile = function(tile) {
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.dataset.number = tile.tile.numberValue;
 };
 
@@ -97,7 +98,7 @@ HtmlActuator.prototype.onSetNumberTile = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onUnsetNumberTile = function(tile) {
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.dataset.number = null;
 };
 
@@ -110,7 +111,7 @@ HtmlActuator.prototype.onFlagTile = function(tile) {
     this.flagCount++;
     this.events.trigger('update_mine_count', {mines: this.mineCount, flags: this.flagCount});
 
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.classList.add('flag');
 };
 
@@ -123,7 +124,7 @@ HtmlActuator.prototype.onUnflagTile = function(tile) {
     this.flagCount--;
     this.events.trigger('update_mine_count', {mines: this.mineCount, flags: this.flagCount});
 
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.classList.remove('flag');
 };
 
@@ -133,7 +134,7 @@ HtmlActuator.prototype.onUnflagTile = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onStepOnMine = function(tile) {
-    var cell = this.table.rows[tile.x].cells[tile.y];
+    var cell = this.table.rows[tile.y].cells[tile.x];
     cell.classList.add('red');
 };
 
@@ -143,7 +144,7 @@ HtmlActuator.prototype.onStepOnMine = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onExposeMine = function(tile) {
-    var cell = this.table.rows[tile.mine.x].cells[tile.mine.y];
+    var cell = this.table.rows[tile.mine.y].cells[tile.mine.x];
     cell.classList.add('mine');
 };
 
@@ -153,7 +154,7 @@ HtmlActuator.prototype.onExposeMine = function(tile) {
  * @param tile
  */
 HtmlActuator.prototype.onBadFlag = function(tile) {
-    var cell = this.table.rows[tile.mine.x].cells[tile.mine.y];
+    var cell = this.table.rows[tile.mine.y].cells[tile.mine.x];
     cell.classList.add('red');
 };
 
