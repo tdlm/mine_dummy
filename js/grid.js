@@ -156,6 +156,36 @@ Grid.prototype.getTilesWithoutMinesOrNumbers = function() {
 };
 
 /**
+ * Get Tiles without Mines or Numbers
+ *
+ * @returns {Array}
+ */
+Grid.prototype.getTilesWithNumbers = function() {
+    var tiles = [];
+    this.eachCell(function(x, y, tile) {
+        if (tile.numbered) {
+            tiles.push(tile);
+        }
+    });
+
+    return tiles;
+};
+
+/**
+ * Get Tiles without Mines or Numbers
+ *
+ * @returns {Array}
+ */
+Grid.prototype.getAllTiles = function() {
+    var tiles = [];
+    this.eachCell(function(x, y, tile) {
+        tiles.push(tile);
+    });
+
+    return tiles;
+};
+
+/**
  * Get Tiles with Mines
  *
  * @returns {Array}
